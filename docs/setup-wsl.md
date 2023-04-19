@@ -129,6 +129,9 @@
 8. **Restart WSL:**
 
    Close WSL and reopen it to apply the changes.
+    ```powershell
+   wsl.exe --shutdown
+    ```
 
    _Explanation_: Restarting WSL is required to apply the new settings and installations.
 
