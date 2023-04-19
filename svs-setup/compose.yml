@@ -1,0 +1,58 @@
+version: "3"
+
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    restart: always
+    container_name: rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+    expose:
+      - 5672
+      - 15672
+    volumes:
+      - 'rabbitmq:/data'
+
+  db:
+    image: mongo:latest
+    container_name: mongodb
+    restart: always
+    ports:
+      - 27017:27017
+    expose:
+      - 27017
+    command: --replSet sc-rs
+    volumes:
+      - 'db:/data'
+
+  # You have to add this "127.0.0.1 db" to hosts file under "C:\Windows\System32\drivers\etc"
+  # Hint: Use notepad as administrator and use file open function, change type to all to change the host file.
+  # Server .env entry "DB_URL=mongodb://127.0.0.1:27017/schulcloud?replicaSet=sc-rs"
+  mongoinit:
+    container_name: mongoinit
+    image: mongo:latest
+    restart: 'no'
+    depends_on:
+      - db
+    command: >
+      mongosh --host mongodb:27017 --eval
+      '
+      rs.initiate( {
+         _id : "sc-rs",
+         members: [
+            { _id: 0, host: "localhost:27017" }
+         ]
+      })
+      '
+
+volumes:
+  db:
+  rabbitmq:
+  sc-client:
+  sc-server:
+
+networks:
+  default:
+    name: schulcloudserver_schulcloud-server-network
+
