@@ -55,21 +55,65 @@
 
 6. **Run the following commands in WSL:**
 
-    After restarting, open WSL (Ubuntu) and run the following commands:
+   After restarting, open WSL (Ubuntu) and run the following commands:
 
-    ```bash
-    sudo apt-get update
-    sudo apt-get install -y docker.io python3
-    echo "[boot]" | sudo tee /etc/wsl.conf
-    echo "systemd=true" | sudo tee -a /etc/wsl.conf
-    sudo mkdir -p /etc/systemd/system
-    echo -e "[Unit]\nDescription=Docker daemon\nAfter=network.target\n\n[Service]\nExecStart=/usr/bin/dockerd -H unix:///var/run/docker.sock -H tcp://0.0.0.0:2375 --iptables=false\nRestart=always\nRestartSec=10s\nLimitNOFILE=infinity\n\n[Install]\nWantedBy=multi-user.target" | sudo tee /etc/systemd/system/dockerd.service
-    sudo systemctl enable dockerd.service
-    ```
 
-   _Explanation_: These commands update the package directory, install Docker and Python3, configure systemd as a startup option in WSL, and create a systemd service for the Docker daemon.
+   - Update the package list:
 
-7. **Install Docker Compose:**
+     ```bash
+     sudo apt-get update
+     ```
+
+     *Explanation:* This command updates the package list on your Ubuntu WSL, ensuring you have access to the latest package versions and their dependencies.
+
+
+   - Install Docker and Python3:
+
+     ```bash
+     sudo apt-get install -y docker.io python3
+     ```
+
+     *Explanation:* This command installs the Docker and Python3 packages on your Ubuntu WSL.
+
+
+   - Create and configure the `/etc/wsl.conf` file:
+
+     ```bash
+     echo "[boot]" | sudo tee /etc/wsl.conf
+     echo "systemd=true" | sudo tee -a /etc/wsl.conf
+     ```
+
+     *Explanation:* These two commands create and configure the `/etc/wsl.conf` file. The first command creates the file and adds the `[boot]` section. The second command appends `systemd=true` to the file, enabling the use of systemd within WSL.
+
+
+   - Create the `/etc/systemd/system` directory:
+
+     ```bash
+     sudo mkdir -p /etc/systemd/system
+     ```
+
+     *Explanation:* This command creates the `/etc/systemd/system` directory if it does not already exist. This is where the Docker systemd service file will be placed.
+
+
+   - Create the Docker systemd service file:
+
+     ```bash
+     echo -e "[Unit]\nDescription=Docker daemon\nAfter=network.target\n\n[Service]\nExecStart=/usr/bin/dockerd -H unix:///var/run/docker.sock -H tcp://0.0.0.0:2375 --iptables=false\nRestart=always\nRestartSec=10s\nLimitNOFILE=infinity\n\n[Install]\nWantedBy=multi-user.target" | sudo tee /etc/systemd/system/dockerd.service
+     ```
+
+     *Explanation:* This command creates a Docker systemd service file in `/etc/systemd/system/dockerd.service`. The file contains the configuration for the Docker daemon, such as its startup options and dependencies.
+
+
+   - Enable the Docker systemd service:
+
+     ```bash
+     sudo systemctl enable dockerd.service
+     ```
+
+     *Explanation:* This command enables the Docker systemd service, which means that the Docker daemon will start automatically when the WSL starts up.
+
+
+7. _Install Docker Compose: (In case docker-compose cannot be found)_
 
     Run the following commands in WSL to install Docker Compose:
 
@@ -80,6 +124,7 @@
     ```
 
    _Explanation_: These commands install Curl, download the Docker Compose binary, and make it executable so it can be used as a command.
+
 
 8. **Restart WSL:**
 
