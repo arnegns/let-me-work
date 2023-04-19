@@ -43,7 +43,7 @@
     ```powershell
     wsl.exe --update
     ```
-   _Explanation_: Explanation: This command ensures you are using the latest version of WSL2 and its components.
+   _Explanation_: This command ensures you are using the latest version of WSL2 and its components.
 
 
 5. **Restart your computer:**
