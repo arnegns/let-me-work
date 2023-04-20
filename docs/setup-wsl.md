@@ -33,7 +33,7 @@
     $wslConfigPath = Join-Path -Path $env:USERPROFILE -ChildPath ".wslconfig"
     Set-Content -Path $wslConfigPath -Value $wslConfigContent
     ```
-    _Explanation_: Explanation: This command creates a .wslconfig file in your user profile, enabling the setting for localhost forwarding.
+    _Explanation_: This command creates a .wslconfig file in your user profile, enabling the setting for localhost forwarding.
 
 
 4. **Update WSL:**
@@ -70,7 +70,7 @@
    - Install Docker and Python3:
 
      ```bash
-     sudo apt-get install -y docker.io python3
+     sudo apt-get install -y docker.io python3 docker-compose
      ```
 
      *Explanation:* This command installs the Docker and Python3 packages on your Ubuntu WSL.
@@ -80,6 +80,8 @@
 
      ```bash
      echo "[boot]" | sudo tee /etc/wsl.conf
+     ```
+     ```bash
      echo "systemd=true" | sudo tee -a /etc/wsl.conf
      ```
 
