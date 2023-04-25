@@ -115,6 +115,15 @@
      *Explanation:* This command enables the Docker systemd service, which means that the Docker daemon will start automatically when the WSL starts up.
 
 
+   - Add User to docker group
+
+     ```bash
+     sudo usermod -aG docker $USER
+     ```
+
+     *Explanation:* This command adds the current user to the docker group. So the docker commands can be run without sudo. 
+
+
 7. _Install Docker Compose: (In case docker-compose cannot be found)_
 
     Run the following commands in WSL to install Docker Compose:
