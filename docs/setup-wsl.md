@@ -17,7 +17,24 @@
     ```powershell
     wsl.exe --install -d Ubuntu
     ```
-    _Explanation_: This command installs Ubuntu as a WSL distribution on your computer. 
+   
+    Run the following commands in the WSL and make sure that Ubuntu is running on 22.04 or above.
+
+    ```bash
+    sudo lsb_release -a
+    ```
+   
+    If it is on an older version please upgrade it to support e.g. localhostforwarding.
+    
+    ```bash
+    sudo apt update && sudo apt full-upgrade
+    ```
+    Restart you wsl `wsl --shutdown` and open up a terminal again.
+    ```bash
+    sudo do-release-upgrade
+    ```
+
+    _Explanation_: This commands installs Ubuntu as a WSL distribution on your computer. 
      Wait for the installation of Ubuntu, as it may take some time.
 
 
@@ -70,7 +87,7 @@
    - Install Docker and Python3:
 
      ```bash
-     sudo apt-get install -y docker.io python3 docker-compose
+     sudo apt-get install -y docker.io python3
      ```
 
      *Explanation:* This command installs the Docker and Python3 packages on your Ubuntu WSL.
@@ -124,7 +141,7 @@
      *Explanation:* This command adds the current user to the docker group. So the docker commands can be run without sudo. 
 
 
-7. _Install Docker Compose: (In case docker-compose cannot be found)_
+7. **Install Docker Compose:**
 
     Run the following commands in WSL to install Docker Compose:
 
@@ -146,6 +163,8 @@
 
    _Explanation_: Restarting WSL is required to apply the new settings and installations.
 
+### Links
+- https://learn.microsoft.com/en-us/windows/wsl/wsl-config
 
 
 
