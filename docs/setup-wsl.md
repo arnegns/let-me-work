@@ -163,6 +163,35 @@
 
    _Explanation_: Restarting WSL is required to apply the new settings and installations.
 
+## Resolving Port Conflicts with Windows Services and WSL Applications
+
+If `svchost.exe` is occupying a port, it usually means that a Windows service running under `svchost.exe` is using the port. To find out which service is occupying the port and resolve the issue, you can follow these steps:
+
+1. Identify the process occupying the port and note the Process ID (PID) using the following command in Command Prompt or PowerShell:
+
+   ```
+   netstat -aon | findstr :<PortNumber>
+   ```
+
+2. Identify the service occupying the port using the PID you found in the previous step. Execute the following command in Command Prompt or PowerShell:
+
+   ```
+   tasklist /svc /FI "PID eq <PID>"
+   ```
+
+   Replace `<PID>` with the actual Process ID you found in the first step.
+
+3. Once you have identified the service occupying the port, you can try changing the port settings of the service or disabling the service if it is not needed.
+
+4. To change the settings of the service or disable it, press the Windows key, search for "Services," and open the Services app. Look for the service you identified in the list of services and double-click it to open its properties.
+
+5. Change the Startup type to "Manual" or "Disabled" if you want to disable the service. Otherwise, check the documentation or settings of the service to find out how to change the port it uses.
+
+6. Restart your computer to ensure the changes take effect.
+
+Please note that disabling services can lead to unexpected issues. Make sure you know which service you are disabling and what the impact on your system might be. If disabling the service is not an option, consider using a different port for your WSL application.
+
+
 ### Links
 - https://learn.microsoft.com/en-us/windows/wsl/wsl-config
 
