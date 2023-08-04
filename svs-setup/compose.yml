@@ -1,4 +1,4 @@
-version: "3"
+version: "3.7"
 
 services:
   rabbitmq:
@@ -55,4 +55,5 @@ volumes:
 networks:
   default:
     name: schulcloudserver_schulcloud-server-network
+    external: true # to use if you want to use an existing network
 
